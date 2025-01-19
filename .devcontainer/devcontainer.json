@@ -10,10 +10,18 @@
 		"ghcr.io/jungaretti/features/make:1": {},
 		"ghcr.io/audacioustux/devcontainers/k9s:1": {},
 		"ghcr.io/devcontainers-extra/features/kind:1": {}
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
+
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.makefile-tools"
+			]
+		}
+	}
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
