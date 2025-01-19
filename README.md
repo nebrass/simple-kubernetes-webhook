@@ -55,7 +55,7 @@ Make sure that the Kubernetes node is ready:
 ```
 ❯ kubectl get nodes
 NAME                 STATUS   ROLES                  AGE     VERSION
-kind-control-plane   Ready    control-plane,master   3m25s   v1.21.1
+kind-control-plane   Ready    control-plane,master   3m25s   v1.32.0
 ```
 
 And that system pods are running happily:
@@ -148,10 +148,10 @@ Unit tests can be run with the following command:
 ```
 $ make test
 go test ./...
-?   	github.com/slackhq/simple-kubernetes-webhook	[no test files]
-ok  	github.com/slackhq/simple-kubernetes-webhook/pkg/admission	0.611s
-ok  	github.com/slackhq/simple-kubernetes-webhook/pkg/mutation	1.064s
-ok  	github.com/slackhq/simple-kubernetes-webhook/pkg/validation	0.749s
+?   	github.com/nebrass/simple-kubernetes-webhook	[no test files]
+ok  	github.com/nebrass/simple-kubernetes-webhook/pkg/admission	0.611s
+ok  	github.com/nebrass/simple-kubernetes-webhook/pkg/mutation	1.064s
+ok  	github.com/nebrass/simple-kubernetes-webhook/pkg/validation	0.749s
 ```
 
 ## Admission Logic

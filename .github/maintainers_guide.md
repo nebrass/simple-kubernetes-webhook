@@ -19,10 +19,10 @@ Tools, dependencies, or other programs someone maintaining this project needs to
 Unit can be run like so:
 ```
 ❯ go test ./...
-?   	github.com/slackhq/simple-kubernetes-webhook	[no test files]
-ok  	github.com/slackhq/simple-kubernetes-webhook/pkg/admission	0.743s
-ok  	github.com/slackhq/simple-kubernetes-webhook/pkg/mutation	1.065s
-ok  	github.com/slackhq/simple-kubernetes-webhook/pkg/validation	0.413s
+?   	github.com/nebrass/simple-kubernetes-webhook	[no test files]
+ok  	github.com/nebrass/simple-kubernetes-webhook/pkg/admission	0.743s
+ok  	github.com/nebrass/simple-kubernetes-webhook/pkg/mutation	1.065s
+ok  	github.com/nebrass/simple-kubernetes-webhook/pkg/validation	0.413s
 ```
 
 ### TLS certificate
