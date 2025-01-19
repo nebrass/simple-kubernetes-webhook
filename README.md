@@ -6,6 +6,19 @@ This project is aimed at illustrating how to build a fully functioning admission
 
 For readability, this project has been stripped of the usual production items such as: observability instrumentation, release scripts, redundant deployment configurations, etc. As such, it is not meant to use as-is in a production environment. This project is, in fact, a simplified fork of a system used accross all Kubernetes production environments at Slack.
 
+---
+## ℹ️ About this Fork 🔁
+
+This Fork contains the following changes:
+
+- Updated versions of the dependencies.
+- Added DevContainer configuration for VSCode
+- Replaced the Validation Webhook to block all operations in the namespace `protected`.
+- Replace the Mutation Webhook to update the image name to include our internal repository `contoso.acr.io`.
+- Updated unit tests to reflect the changes in the webhooks.
+
+---
+
 ## Installation
 This project can fully run locally and includes automation to deploy a local Kubernetes cluster (using Kind).
 
@@ -13,7 +26,7 @@ This project can fully run locally and includes automation to deploy a local Kub
 * Docker
 * kubectl
 * [Kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-* Go >=1.16 (optional)
+* Go >=1.23 (optional)
 
 ## Usage
 ### Create Cluster
@@ -24,7 +37,7 @@ First, we need to create a Kubernetes cluster:
 🔧 Creating Kubernetes cluster...
 kind create cluster --config dev/manifests/kind/kind.cluster.yaml
 Creating cluster "kind" ...
- ✓ Ensuring node image (kindest/node:v1.21.1) 🖼
+ ✓ Ensuring node image (kindest/node:v1.32.0) 🖼
  ✓ Preparing nodes 📦
  ✓ Writing configuration 📜
  ✓ Starting control-plane 🕹️
