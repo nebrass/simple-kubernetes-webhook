@@ -1,6 +1,7 @@
 package mutation
 
 import (
+	"encoding/json"
 	"io"
 	"testing"
 
@@ -17,8 +18,17 @@ func TestMutatePodPatch(t *testing.T) {
 	}
 
 	p := patch()
-	g := string(got)
-	assert.Equal(t, p, g)
+	var expectedPatch interface{}
+	var actualPatch interface{}
+	err = json.Unmarshal([]byte(p), &expectedPatch)
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = json.Unmarshal(got, &actualPatch)
+	if err != nil {
+		t.Fatal(err)
+	}
+	assert.Equal(t, expectedPatch, actualPatch)
 }
 
 func BenchmarkMutatePodPatch(b *testing.B) {

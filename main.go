@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/nebrass/simple-kubernetes-webhook/pkg/admission"
 	"github.com/sirupsen/logrus"
-	"github.com/slackhq/simple-kubernetes-webhook/pkg/admission"
 	admissionv1 "k8s.io/api/admission/v1"
 )
 
