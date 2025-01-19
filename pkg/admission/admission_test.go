@@ -17,6 +17,7 @@ func TestPod(t *testing.T) {
 	want := &corev1.Pod{
 		ObjectMeta: metav1.ObjectMeta{
 			Name: "lifespan",
+			Namespace: "some-namespace",
 		},
 		Spec: corev1.PodSpec{
 			Containers: []corev1.Container{{

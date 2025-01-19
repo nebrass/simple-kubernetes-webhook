@@ -1,18 +1,16 @@
 package mutation
 
 import (
-	"io/ioutil"
-	"strings"
+	"io"
 	"testing"
 
 	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 	corev1 "k8s.io/api/core/v1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 func TestMutatePodPatch(t *testing.T) {
-	m := NewMutator(logger())
+	m := NewMutator(testLogger())
 	got, err := m.MutatePodPatch(pod())
 	if err != nil {
 		t.Fatal(err)
@@ -24,7 +22,7 @@ func TestMutatePodPatch(t *testing.T) {
 }
 
 func BenchmarkMutatePodPatch(b *testing.B) {
-	m := NewMutator(logger())
+	m := NewMutator(testLogger())
 	pod := pod()
 
 	for i := 0; i < b.N; i++ {
@@ -37,12 +35,6 @@ func BenchmarkMutatePodPatch(b *testing.B) {
 
 func pod() *corev1.Pod {
 	return &corev1.Pod{
-		ObjectMeta: v1.ObjectMeta{
-			Name: "lifespan",
-			Labels: map[string]string{
-				"acme.com/lifespan-requested": "7",
-			},
-		},
 		Spec: corev1.PodSpec{
 			Containers: []corev1.Container{{
 				Name:  "lifespan",
@@ -53,31 +45,13 @@ func pod() *corev1.Pod {
 }
 
 func patch() string {
-	patch := `[
-		{"op":"add","path":"/spec/containers/0/env","value":[
-			{"name":"KUBE","value":"true"}
-		]},
-		{"op":"add","path":"/spec/tolerations","value":[
-			{"effect":"NoSchedule","key":"acme.com/lifespan-remaining","operator":"Equal","value":"14"},
-			{"effect":"NoSchedule","key":"acme.com/lifespan-remaining","operator":"Equal","value":"13"},
-			{"effect":"NoSchedule","key":"acme.com/lifespan-remaining","operator":"Equal","value":"12"},
-			{"effect":"NoSchedule","key":"acme.com/lifespan-remaining","operator":"Equal","value":"11"},
-			{"effect":"NoSchedule","key":"acme.com/lifespan-remaining","operator":"Equal","value":"10"},
-			{"effect":"NoSchedule","key":"acme.com/lifespan-remaining","operator":"Equal","value":"9"},
-			{"effect":"NoSchedule","key":"acme.com/lifespan-remaining","operator":"Equal","value":"8"},
-			{"effect":"NoSchedule","key":"acme.com/lifespan-remaining","operator":"Equal","value":"7"}
-		]}
-]`
-
-	patch = strings.ReplaceAll(patch, "\n", "")
-	patch = strings.ReplaceAll(patch, "\t", "")
-	patch = strings.ReplaceAll(patch, " ", "")
+	patch := `[{"op":"replace","path":"/spec/containers/0/image","value":"contoso.acr.io/busybox"}]`
 
 	return patch
 }
 
-func logger() *logrus.Entry {
+func testLogger() *logrus.Entry {
 	mute := logrus.StandardLogger()
-	mute.Out = ioutil.Discard
+	mute.Out = io.Discard
 	return mute.WithField("logger", "test")
 }

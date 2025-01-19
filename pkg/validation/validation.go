@@ -41,7 +41,7 @@ func (v *Validator) ValidatePod(pod *corev1.Pod) (validation, error) {
 
 	// list of all validations to be applied to the pod
 	validations := []podValidator{
-		nameValidator{v.Logger},
+		namespaceValidator{v.Logger},
 	}
 
 	// apply all validations
